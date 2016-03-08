@@ -273,14 +273,14 @@ void radix4_fixed_Q24xQ17(struct complex32 *x,   // Input in Q24 format
       bfly[0].r = SAT_ADD25( SAT_ADD25(x[n2].r,x[N2 + n2].r) , SAT_ADD25 (x[2*N2+n2].r ,  x[3*N2+n2].r));
       bfly[0].i = SAT_ADD25( SAT_ADD25(x[n2].i,x[N2 + n2].i) , SAT_ADD25 (x[2*N2+n2].i ,  x[3*N2+n2].i));
 
-      bfly[1].r =  SAT_ADD25( SAT_ADD25(x[n2].r , x[N2 + n2].i) , - SAT_ADD25( x[2*N2+n2].r , -x[3*N2+n2].i));
-      bfly[1].i = SAT_ADD25 (SAT_ADD25(x[n2].i , -x[N2 + n2].r) , -SAT_ADD25(x[2*N2+n2].i , x[3*N2+n2].r));
+      bfly[1].r =  SAT_ADD25( SAT_ADD25(x[n2].r , x[N2 + n2].i) , - SAT_ADD25( x[2*N2+n2].r , x[3*N2+n2].i));
+      bfly[1].i = SAT_ADD25 (SAT_ADD25(x[n2].i , -x[N2 + n2].r) , SAT_ADD25(-x[2*N2+n2].i , x[3*N2+n2].r));
 
       bfly[2].r = SAT_ADD25(SAT_ADD25(x[n2].r , -x[N2 + n2].r) , SAT_ADD25( x[2*N2+n2].r , -x[3*N2+n2].r));
       bfly[2].i = SAT_ADD25(SAT_ADD25(x[n2].i , -x[N2 + n2].i) , SAT_ADD25( x[2*N2+n2].i , -x[3*N2+n2].i));
 
-      bfly[3].r = SAT_ADD25(SAT_ADD25(x[n2].r ,- x[N2 + n2].i) ,- SAT_ADD25(x[2*N2+n2].r , x[3*N2+n2].i));
-      bfly[3].i = SAT_ADD25(SAT_ADD25(x[n2].i + x[N2 + n2].r ), -SAT_ADD25(x[2*N2+n2].i , - x[3*N2+n2].r));
+      bfly[3].r = SAT_ADD25(SAT_ADD25(x[n2].r ,- x[N2 + n2].i) ,- SAT_ADD25(-x[2*N2+n2].r , x[3*N2+n2].i));
+      bfly[3].i = SAT_ADD25(SAT_ADD25(x[n2].i , x[N2 + n2].r ), -SAT_ADD25(x[2*N2+n2].i ,  x[3*N2+n2].r));
 
 
       // In-place results
@@ -486,12 +486,40 @@ void main(int argc, char *argv[])
     }
 
   printf("res_%d = [ \n",N);    
-  FILE *f = fopen("file.txt", "w");
-  if (f==NULL){
+  FILE *f1 = fopen("file64_2.txt", "w");
+  if (f1==NULL){
 		printf("Error opening file");
 	    exit(1);
 
+
 	}
+
+
+FILE *f2 = fopen("file256_2.txt", "w");
+  if (f2==NULL){
+        printf("Error opening file");
+        exit(1);
+
+
+    }
+FILE *f3 = fopen("file1024_2.txt", "w");
+  if (f3==NULL){
+        printf("Error opening file");
+        exit(1);
+
+
+    }
+FILE *f4 = fopen("file4096_2.txt", "w");
+  if (f4==NULL){
+        printf("Error opening file");
+        exit(1);
+
+
+    }
+
+
+
+
   for (input_dB=-40;input_dB<0;input_dB++) {
     
 
@@ -532,7 +560,7 @@ void main(int argc, char *argv[])
 		
 	      }
       printf("%f, %f, %% Optimum Scaling : %d %d %d %d %d %d %d\n",input_dB,maxSNR,maxscale[0],maxscale[1],maxscale[2],maxscale[3],maxscale[4],maxscale[5],maxscale[6]);
-	  fprintf(f, "%f, %f\n", input_dB, maxSNR);
+	  fprintf(f4, "%f, %f\n", input_dB, maxSNR);
       break;
     case 1024:
 
@@ -545,7 +573,7 @@ void main(int argc, char *argv[])
 		fft_distortion_test(N,test,input_dB,scale,&maxSNR,maxscale,data,data16,data32);
 	      }
       printf("%f, %f, %% Optimum Scaling : %d %d %d %d %d %d %d\n",input_dB,maxSNR,maxscale[0],maxscale[1],maxscale[2],maxscale[3],maxscale[4],maxscale[5],maxscale[6]);
-      fprintf(f, "%f, %f\n", input_dB, maxSNR);
+      fprintf(f3, "%f, %f\n", input_dB, maxSNR);
       break;
     case 256:
 
@@ -558,7 +586,7 @@ void main(int argc, char *argv[])
 	  }
       printf("%f, %f, %% Optimum Scaling : %d %d %d %d %d %d %d\n",input_dB,maxSNR,maxscale[0],maxscale[1],maxscale[2],maxscale[3],maxscale[4],maxscale[5],maxscale[6]);
       
-	fprintf(f, "%f, %f\n", input_dB, maxSNR);
+	fprintf(f2, "%f, %f\n", input_dB, maxSNR);
 	break;
 
     case 64:
@@ -570,11 +598,14 @@ void main(int argc, char *argv[])
 	      fft_distortion_test(N,test,input_dB,scale,&maxSNR,maxscale,data,data16,data32);
 	  }
       printf("%f, %f, %% Optimum Scaling : %d %d %d %d %d %d %d\n",input_dB,maxSNR,maxscale[0],maxscale[1],maxscale[2],maxscale[3],maxscale[4],maxscale[5],maxscale[6]);
-	  fprintf(f, "%f, %f\n", input_dB, maxSNR);
+	  fprintf(f1, "%f, %f\n", input_dB, maxSNR);
       break;
 
     }
   }
-
+fclose(f1);
+fclose(f2);
+fclose(f3);
+fclose(f4);
 }
 
