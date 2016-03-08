@@ -8,7 +8,6 @@
 #define PI 3.14159265359
 #define MAXPOW 24
 
-extern void set_taus_seed();
 
 double gaussdouble(double,double);
 unsigned int taus();
@@ -175,12 +174,12 @@ void radix4(struct complex *x, int N)
 
 /** RADIX-4 Fixed-point Normalized FFT ALGORITHM for Q15 arithmetic*/
 /* To be filled in by you .... */
+/*
 
-void radix4_fixed_Q15(struct complex16 *x,   // Input in Q15 forma
-
+void radix4_fixed_Q15(struct complex16 *x,   // Input in Q15 format 
 		      int N,                 // Size of FFT
 		      unsigned char *scale,  // Pointer to scaling schedule
-		      unsigned char stage )  // Stage of fft
+		      unsigned char stage)   // Stage of fft
                                              
 { 
   int    n2, k1, N1, N2;
@@ -205,43 +204,39 @@ void radix4_fixed_Q15(struct complex16 *x,   // Input in Q15 forma
       x[(2*N2) + n2].i >>= scale[stage];
       x[(3*N2) + n2].i >>= scale[stage];
       
-      // Radix 4 Butterfly
+      // Radix 4 Butterfly 
+      bfly[0].r = XXXXXXXXXXXXXXXXXXXXXXXxx
+      bfly[0].i = XXXXXXXXXXXXXXXXXXXXXXXxx
+      bfly[1].r = XXXXXXXXXXXXXXXXXXXXXXXxx
+      bfly[1].i = XXXXXXXXXXXXXXXXXXXXXXXxx
 
-      bfly[0].r = SAT_ADD16( SAT_ADD16(x[n2].r,x[N2 + n2].r) , SAT_ADD16 (x[2*N2+n2].r ,  x[3*N2+n2].r));
-      bfly[0].i = SAT_ADD16( SAT_ADD16(x[n2].i,x[N2 + n2].i) , SAT_ADD16 (x[2*N2+n2].i ,  x[3*N2+n2].i));
+      bfly[2].r = XXXXXXXXXXXXXXXXXXXXXXXxx
+      bfly[2].i = XXXXXXXXXXXXXXXXXXXXXXXxx
 
-      bfly[1].r =  SAT_ADD16( SAT_ADD16(x[n2].r , x[N2 + n2].i ), - SAT_ADD16( x[2*N2+n2].r , x[3*N2+n2].i));
-      bfly[1].i = SAT_ADD16 (SAT_ADD16(x[n2].i , -x[N2 + n2].r) , SAT_ADD16(-x[2*N2+n2].i , x[3*N2+n2].r));
-
-      bfly[2].r = SAT_ADD16(SAT_ADD16(x[n2].r , -x[N2 + n2].r) , SAT_ADD16( x[2*N2+n2].r , -x[3*N2+n2].r));
-      bfly[2].i = SAT_ADD16(SAT_ADD16(x[n2].i , -x[N2 + n2].i) , SAT_ADD16( x[2*N2+n2].i , -x[3*N2+n2].i));
-
-      bfly[3].r = SAT_ADD16(SAT_ADD16(x[n2].r ,- x[N2 + n2].i) ,SAT_ADD16(-x[2*N2+n2].r , x[3*N2+n2].i));
-	  bfly[3].i=SAT_ADD16(SAT_ADD16(x[n2].i,x[N2 + n2].r ),-SAT_ADD16(x[2*N2+n2].i ,  x[3*N2+n2].r));
- 
+      bfly[3].r = XXXXXXXXXXXXXXXXXXXXXXXxx
+      bfly[3].i = XXXXXXXXXXXXXXXXXXXXXXXxx
 
 
       // In-place results
       for (k1=0; k1<N1; k1++)
-		{
-	  		twiddle_fixed(&W, N, (double)k1*(double)n2);
-		    x[n2 + N2*k1].r = SAT_ADD16(FIX_MPY(bfly[k1].r,W.r) , -FIX_MPY( bfly[k1].i,W.i));
-            x[n2 + N2*k1].i = SAT_ADD16(FIX_MPY(bfly[k1].i,W.r) , FIX_MPY(bfly[k1].r,W.i));
-		}
+	{
+	  twiddle_fixed(&W, N, (double)k1*(double)n2);
+	  x[n2 + N2*k1].r = XXXXXXXXXXXXXXXXXXXXXXXXXx
+	}
     }
     
     // Don't recurse if we're down to one butterfly 
   if (N2!=1)
     for (k1=0; k1<N1; k1++)
       {
-		radix4_fixed_Q15(&x[N2*k1], N2,scale,stage+1);
+	radix4_fixed_Q15(&x[N2*k1], N2,scale,stage+1);
       }
 }
 
 
 /** RADIX-4 Fixed-point Normalized FFT ALGORITHM for Q15 arithmetic*/
 /* To be filled in by you*/
-
+/*
 void radix4_fixed_Q24xQ17(struct complex32 *x,   // Input in Q24 format 
 			  int N,                 // Size of FFT
 			  unsigned char *scale,  // Pointer to scaling schedule
@@ -270,25 +265,23 @@ void radix4_fixed_Q24xQ17(struct complex32 *x,   // Input in Q24 format
       x[(3*N2) + n2].i >>= scale[stage];
       
       // Radix 4 Butterfly 
-      bfly[0].r = SAT_ADD25( SAT_ADD25(x[n2].r,x[N2 + n2].r) , SAT_ADD25 (x[2*N2+n2].r ,  x[3*N2+n2].r));
-      bfly[0].i = SAT_ADD25( SAT_ADD25(x[n2].i,x[N2 + n2].i) , SAT_ADD25 (x[2*N2+n2].i ,  x[3*N2+n2].i));
+      bfly[0].r = XXXXXXXXXXXXXXXXXXXXXXXxx
+      bfly[0].i = XXXXXXXXXXXXXXXXXXXXXXXxx
+      bfly[1].r = XXXXXXXXXXXXXXXXXXXXXXXxx
+      bfly[1].i = XXXXXXXXXXXXXXXXXXXXXXXxx
 
-      bfly[1].r =  SAT_ADD25( SAT_ADD25(x[n2].r , x[N2 + n2].i) , - SAT_ADD25( x[2*N2+n2].r , -x[3*N2+n2].i));
-      bfly[1].i = SAT_ADD25 (SAT_ADD25(x[n2].i , -x[N2 + n2].r) , -SAT_ADD25(x[2*N2+n2].i , x[3*N2+n2].r));
+      bfly[2].r = XXXXXXXXXXXXXXXXXXXXXXXxx
+      bfly[2].i = XXXXXXXXXXXXXXXXXXXXXXXxx
 
-      bfly[2].r = SAT_ADD25(SAT_ADD25(x[n2].r , -x[N2 + n2].r) , SAT_ADD25( x[2*N2+n2].r , -x[3*N2+n2].r));
-      bfly[2].i = SAT_ADD25(SAT_ADD25(x[n2].i , -x[N2 + n2].i) , SAT_ADD25( x[2*N2+n2].i , -x[3*N2+n2].i));
-
-      bfly[3].r = SAT_ADD25(SAT_ADD25(x[n2].r ,- x[N2 + n2].i) ,- SAT_ADD25(x[2*N2+n2].r , x[3*N2+n2].i));
-      bfly[3].i = SAT_ADD25(SAT_ADD25(x[n2].i + x[N2 + n2].r ), -SAT_ADD25(x[2*N2+n2].i , - x[3*N2+n2].r));
+      bfly[3].r = XXXXXXXXXXXXXXXXXXXXXXXxx
+      bfly[3].i = XXXXXXXXXXXXXXXXXXXXXXXxx
 
 
       // In-place results
       for (k1=0; k1<N1; k1++)
 	{
 	  twiddle_fixed_Q17(&W, N, (double)k1*(double)n2);
-	  x[n2 + N2*k1].r = SAT_ADD25(FIX_MPY25by18(bfly[k1].r,W.r) , -FIX_MPY25by18( bfly[k1].i,W.i));
-      x[n2 + N2*k1].i = SAT_ADD25(FIX_MPY25by18(bfly[k1].i,W.r) , FIX_MPY25by18(bfly[k1].r,W.i));
+	  x[n2 + N2*k1].r = XXXXXXXXXXXXXXXXXXXXXXXXXx
 	}
     }
     
@@ -299,7 +292,7 @@ void radix4_fixed_Q24xQ17(struct complex32 *x,   // Input in Q24 format
 	radix4_fixed_Q24xQ17(&x[N2*k1], N2,scale,stage+1);
       }
 }
-
+*/
 
 QAM_input(struct complex *data,double amp,int N,int Nu,char M) {
 
@@ -437,8 +430,6 @@ void main(int argc, char *argv[])
   struct complex16 *data16;  
   struct complex32 *data32;
 
-  randominit();
-  set_taus_seed();
 
   if (argc!= 3) {
     printf("fft size(16-4096) test(0-2)!!\n");
@@ -486,12 +477,7 @@ void main(int argc, char *argv[])
     }
 
   printf("res_%d = [ \n",N);    
-  FILE *f = fopen("file.txt", "w");
-  if (f==NULL){
-		printf("Error opening file");
-	    exit(1);
-
-	}
+    
   for (input_dB=-40;input_dB<0;input_dB++) {
     
 
@@ -532,7 +518,6 @@ void main(int argc, char *argv[])
 		
 	      }
       printf("%f, %f, %% Optimum Scaling : %d %d %d %d %d %d %d\n",input_dB,maxSNR,maxscale[0],maxscale[1],maxscale[2],maxscale[3],maxscale[4],maxscale[5],maxscale[6]);
-	  fprintf(f, "%f, %f\n", input_dB, maxSNR);
       break;
     case 1024:
 
@@ -545,7 +530,6 @@ void main(int argc, char *argv[])
 		fft_distortion_test(N,test,input_dB,scale,&maxSNR,maxscale,data,data16,data32);
 	      }
       printf("%f, %f, %% Optimum Scaling : %d %d %d %d %d %d %d\n",input_dB,maxSNR,maxscale[0],maxscale[1],maxscale[2],maxscale[3],maxscale[4],maxscale[5],maxscale[6]);
-      fprintf(f, "%f, %f\n", input_dB, maxSNR);
       break;
     case 256:
 
@@ -557,9 +541,7 @@ void main(int argc, char *argv[])
 	      fft_distortion_test(N,test,input_dB,scale,&maxSNR,maxscale,data,data16,data32);
 	  }
       printf("%f, %f, %% Optimum Scaling : %d %d %d %d %d %d %d\n",input_dB,maxSNR,maxscale[0],maxscale[1],maxscale[2],maxscale[3],maxscale[4],maxscale[5],maxscale[6]);
-      
-	fprintf(f, "%f, %f\n", input_dB, maxSNR);
-	break;
+      break;
 
     case 64:
 
@@ -570,7 +552,6 @@ void main(int argc, char *argv[])
 	      fft_distortion_test(N,test,input_dB,scale,&maxSNR,maxscale,data,data16,data32);
 	  }
       printf("%f, %f, %% Optimum Scaling : %d %d %d %d %d %d %d\n",input_dB,maxSNR,maxscale[0],maxscale[1],maxscale[2],maxscale[3],maxscale[4],maxscale[5],maxscale[6]);
-	  fprintf(f, "%f, %f\n", input_dB, maxSNR);
       break;
 
     }
