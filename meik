@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+rm Report1.pdf
+pdflatex Report1.tex
+xpdf Report1.pdf
+
+
+
