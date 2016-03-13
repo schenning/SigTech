@@ -273,7 +273,7 @@ void radix4_fixed_Q24xQ17(struct complex32 *x,   // Input in Q24 format
       bfly[0].r = SAT_ADD25( SAT_ADD25(x[n2].r,x[N2 + n2].r) , SAT_ADD25 (x[2*N2+n2].r ,  x[3*N2+n2].r));
       bfly[0].i = SAT_ADD25( SAT_ADD25(x[n2].i,x[N2 + n2].i) , SAT_ADD25 (x[2*N2+n2].i ,  x[3*N2+n2].i));
 
-      bfly[1].r =  SAT_ADD25( SAT_ADD25(x[n2].r , x[N2 + n2].i) , - SAT_ADD25( x[2*N2+n2].r , -x[3*N2+n2].i));
+      bfly[1].r =  SAT_ADD25( SAT_ADD25(x[n2].r , x[N2 + n2].i) , - SAT_ADD25( x[2*N2+n2].r , x[3*N2+n2].i));
       bfly[1].i = SAT_ADD25 (SAT_ADD25(x[n2].i , -x[N2 + n2].r) , -SAT_ADD25(x[2*N2+n2].i , x[3*N2+n2].r));
 
       bfly[2].r = SAT_ADD25(SAT_ADD25(x[n2].r , -x[N2 + n2].r) , SAT_ADD25( x[2*N2+n2].r , -x[3*N2+n2].r));
