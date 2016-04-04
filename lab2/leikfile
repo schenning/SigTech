@@ -1,0 +1,24 @@
+CC = gcc
+
+CFLAGS = -Wall -mmmx -msse -msse2 -mssse3 -msse4
+
+# Utility routines
+UTIL_OBJS += dft.o 
+
+#
+
+all: fft
+
+OBJ = $(UTIL_OBJS)
+$(OBJ) : %.o : %.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+
+ffttest.o: ffttest.c
+	$(CC)  -c ffttest.c -o ffttest.o $(CFLAGS)  
+
+ffttest: $(OBJ) ffttest.o
+	$(CC)  $(OBJ) ffttest.o -o ffttest
+
+clean:
+	rm -f *.o 
+
