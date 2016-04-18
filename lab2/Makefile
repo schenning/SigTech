@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS = -Wall -mmmx -msse -msse2 -mssse3 -msse4 -O2
+CFLAGS = -Wall -mmmx -msse -msse2 -mssse3 -msse4 -O2 
 
 # Utility routines
 #UTIL_OBJS += main.o 
